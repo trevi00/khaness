@@ -1,0 +1,24 @@
+{
+  "name": "khaness",
+  "displayName": "khaness",
+  "version": "0.1.0",
+  "description": "A self-improving operations layer for Claude Code: DGE (design/generate/verify) discipline, a multi-agent debate engine (Planner/Critic/Architect), a tiered evaluation stack, ~40 mechanical validators, lifecycle hooks, a tech-stack-scoped skill tree, and spec-driven project-workflow commands.",
+  "author": {
+    "name": "trevi00",
+    "url": "https://github.com/trevi00"
+  },
+  "homepage": "https://github.com/trevi00/khaness",
+  "repository": "https://github.com/trevi00/khaness",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "harness",
+    "agents",
+    "debate",
+    "dge",
+    "validators",
+    "hooks",
+    "spec-driven",
+    "workflow"
+  ]
+}

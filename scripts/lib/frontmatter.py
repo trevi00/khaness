@@ -28,7 +28,11 @@ def parse_frontmatter(filepath: str | Path) -> tuple[dict[str, str], str] | None
     Single source of truth: skill_match.py imports this — do NOT duplicate.
     """
     try:
-        text = Path(filepath).read_text(encoding="utf-8")
+        # utf-8-sig transparently strips a leading BOM. Without it, a BOM-prefixed
+        # .md (common from Windows editors) would make `text.startswith("---")`
+        # False, so this single-source parser would silently return None and the
+        # skill/agent's frontmatter would vanish from matching with no error.
+        text = Path(filepath).read_text(encoding="utf-8-sig")
     except Exception:
         return None
 

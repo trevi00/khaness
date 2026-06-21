@@ -44,10 +44,20 @@ It is a *meta-layer*: you keep using Claude Code as normal, and khaness wraps ea
 
 ## Quickstart
 
+**As a Claude Code plugin (recommended):**
+
+```bash
+claude plugin marketplace add github:trevi00/khaness
+claude plugin install khaness@khaness
+```
+
+The plugin bundles the commands, agents, skills, and hooks; Claude Code resolves the bundled scripts via `${CLAUDE_PLUGIN_ROOT}`, and runtime state lives in your `~/.claude`. `pip install -r requirements.txt` once for the PyYAML dependency.
+
+**Or as a `~/.claude` clone** (for hacking on the harness itself):
+
 ```bash
 git clone https://github.com/trevi00/khaness ~/.claude
-cd ~/.claude
-bash install.sh
+cd ~/.claude && bash install.sh
 ```
 
 `install.sh` generates a portable `settings.json` from the template (interpolating your clone location into the hook paths), installs Python deps, and runs the regression suite to prove the install is sound. Then open a new Claude Code session in that directory.
@@ -72,7 +82,7 @@ A few commands to try:
 | **17** `harness-*` commands | debate, autopilot, audit, interview, team, ultrawork, … |
 | **69** `kha-*` workflow skills | spec → plan → execute → verify project lifecycle |
 | **~40** validators | mechanical pass/fail gates run as a regression suite |
-| **254** skills | `_common/` (always-on) + per-stack trees (java, kotlin, typescript, flutter, …) |
+| **254** skill docs total | the 69 `kha-*` above + per-stack trees (java, kotlin, typescript, flutter, …) + the always-on `_common/` set |
 
 The `scripts/` codebase is a one-directional 4-layer stack — `lib/` → `validators/` → `handlers/` → `engine/` — and is **Open/Closed by design**: a new provider, worker, or validator is a *new file + one registry line*, never an edit to existing code.
 
@@ -95,6 +105,16 @@ This harness was built by an engineer who distrusts absolute claims, and the des
 - **Completeness is quantified, not asserted.** "Done" is reported with known-defect count and coverage; words like "perfect" are avoided on purpose.
 
 If you find a claim stronger than the code that backs it, that's a bug — please [open an issue](https://github.com/trevi00/khaness/issues).
+
+* * *
+
+## Credits & references
+
+khaness stands on ideas from three projects, and is built referencing them:
+
+- **[get-shit-done (GSD)](https://github.com/open-gsd/gsd-core)** — the spec-driven, phase-loop project workflow. khaness's `kha-*` commands and the bundled `get-shit-done/` subsystem derive from it.
+- **Ouroboros** — the event-sourcing / stateless-resumption pattern behind the debate engine and the Ralph verify-fix loop (see `scripts/engine/debate.py`, `scripts/engine/ralph.py`).
+- **OMC** — the orchestration model and the one-directional 4-layer `scripts/` architecture (`lib/` → `validators/` → `handlers/` → `engine/`).
 
 * * *
 

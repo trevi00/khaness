@@ -94,7 +94,26 @@ def test_ensure_field_strips_trailing_before_append():
     assert ensure_field("name: x\n\n", "mutates", "yes") == "name: x\nmutates: yes"
 
 
+# --- parse_frontmatter BOM tolerance (lib/frontmatter.py — utf-8-sig) ---
+
+def test_parse_frontmatter_tolerates_utf8_bom():
+    """A BOM-prefixed .md must still parse — without utf-8-sig the leading \\ufeff
+    makes startswith('---') False and the parser silently returns None, dropping
+    the skill/agent's metadata from matching (audit footgun)."""
+    import tempfile
+    from lib.frontmatter import parse_frontmatter
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "withbom.md"
+        p.write_text("---\nname: bomtest\ndescription: d\n---\nbody\n",
+                     encoding="utf-8-sig")  # writes a leading BOM
+        result = parse_frontmatter(p)
+        assert result is not None, "BOM-prefixed frontmatter must parse, not return None"
+        fm, _ = result
+        assert fm.get("name") == "bomtest"
+
+
 TESTS = [
+    test_parse_frontmatter_tolerates_utf8_bom,
     test_empty_returns_empty_list,
     test_blank_returns_empty_list,
     test_whitespace_separated_legacy,

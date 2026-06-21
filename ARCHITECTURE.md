@@ -9,7 +9,7 @@ A map of how the harness is put together. For the *why*, see the README's [What 
 ```
 lib/         pure-ish utilities. No knowledge of hooks or the engine.
   ↑
-validators/  mechanical pass/fail gates. Import lib/. Registered in a manifest.
+validators/  mechanical pass/fail gates. Import lib/. Registered in the VALIDATOR_NAMES tuple (validators/__init__.py).
   ↑
 handlers/    hook entrypoints. Import lib/ (and may run validators). Fail-open.
   ↑
@@ -61,6 +61,6 @@ It is **defense-in-depth, not a boundary.** An agent with shell access can route
 |---|---|---|
 | AI provider | `lib/providers/<name>.py` + 1 registry line | No |
 | Worker/multiplexer | `lib/workers/<name>.py` + 1 registry line | No |
-| Validator | `validators/<name>.py` + manifest line | No |
+| Validator | `validators/<name>.py` + one line in the `VALIDATOR_NAMES` tuple (`validators/__init__.py`) | No |
 
 If adding one capability forces edits across many files, the seam is wrong — that's the signal to refactor toward a registry.

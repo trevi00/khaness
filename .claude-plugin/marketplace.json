@@ -1,0 +1,22 @@
+{
+  "name": "khaness",
+  "owner": {
+    "name": "trevi00",
+    "url": "https://github.com/trevi00"
+  },
+  "metadata": {
+    "description": "Marketplace for khaness — a self-improving operations layer for Claude Code.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "khaness",
+      "source": "./",
+      "description": "DGE discipline, a multi-agent debate engine, tiered evaluation, ~40 validators, and spec-driven project-workflow commands for Claude Code.",
+      "version": "0.1.0",
+      "author": { "name": "trevi00", "url": "https://github.com/trevi00" },
+      "license": "MIT",
+      "keywords": ["claude-code", "harness", "agents", "debate", "validators", "workflow"]
+    }
+  ]
+}

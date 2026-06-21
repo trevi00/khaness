@@ -27,7 +27,7 @@
 
 `scripts/` is a one-directional 4-layer dependency stack: `lib/` (utilities) → `validators/` (mechanical gates + registry) → `handlers/` (hook entrypoints) → `engine/` (debate engine + orchestrator). `cli/` holds operator entrypoints; `tests/` holds `run_all.py` (validator regression) + `run_units.py` (internals regression).
 
-**Extension points (OCP):** new AI provider → `lib/providers/<name>.py` + 1 registry line. New multiplexer → `lib/workers/<name>.py` + 1 line. New validator → `validators/<name>.py` + 1 manifest line. No existing file is edited.
+**Extension points (OCP):** new AI provider → `lib/providers/<name>.py` + 1 registry line. New multiplexer → `lib/workers/<name>.py` + 1 line. New validator → `validators/<name>.py` + one line in the `VALIDATOR_NAMES` tuple (`validators/__init__.py`). No existing file is edited.
 
 ## Subagent delegation rules
 

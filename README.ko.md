@@ -44,10 +44,20 @@ Claude Code는 이미 유능한 에이전트입니다. **khaness**는 그 위에
 
 ## 빠른 시작
 
+**Claude Code 플러그인으로 (권장):**
+
+```bash
+claude plugin marketplace add github:trevi00/khaness
+claude plugin install khaness@khaness
+```
+
+플러그인은 commands·agents·skills·hooks를 번들합니다. Claude Code가 번들 스크립트를 `${CLAUDE_PLUGIN_ROOT}`로 해석하고, 런타임 상태는 당신의 `~/.claude`에 저장됩니다. PyYAML 의존성은 한 번 `pip install -r requirements.txt`.
+
+**또는 `~/.claude` 클론으로** (하네스 자체를 해킹할 때):
+
 ```bash
 git clone https://github.com/trevi00/khaness ~/.claude
-cd ~/.claude
-bash install.sh
+cd ~/.claude && bash install.sh
 ```
 
 `install.sh`는 템플릿에서 포터블 `settings.json`을 생성(클론 위치를 훅 경로에 보간)하고, Python 의존성을 설치하고, 회귀 스위트를 돌려 설치 건전성을 증명합니다. 이후 그 디렉토리에서 새 Claude Code 세션을 엽니다.
@@ -72,7 +82,7 @@ bash install.sh
 | **17** `harness-*` 명령 | debate, autopilot, audit, interview, team, ultrawork, … |
 | **69** `kha-*` 워크플로 스킬 | spec → plan → execute → verify 프로젝트 라이프사이클 |
 | **~40** 검증자 | 회귀 스위트로 실행되는 기계적 pass/fail 게이트 |
-| **254** 스킬 | `_common/`(상시) + 스택별 트리(java, kotlin, typescript, flutter, …) |
+| **254** 스킬 문서 총합 | 위 69 `kha-*` + 스택별 트리(java, kotlin, typescript, flutter, …) + 상시 `_common/` 포함 |
 
 `scripts/` 코드베이스는 단방향 4계층(`lib/` → `validators/` → `handlers/` → `engine/`)이며 **설계상 OCP**: 새 provider·worker·validator는 *파일 1개 + 레지스트리 1줄*이지 기존 코드 수정이 아닙니다.
 
@@ -95,6 +105,16 @@ bash install.sh
 - **완성도는 단언이 아니라 정량화.** "done"은 알려진 결함 수·커버리지와 함께 보고하며, "완벽" 같은 단어는 일부러 피합니다.
 
 코드가 뒷받침하는 것보다 강한 주장을 찾으면 버그입니다 — [이슈를 열어주세요](https://github.com/trevi00/khaness/issues).
+
+* * *
+
+## 크레딧 & 레퍼런스
+
+khaness는 세 프로젝트의 아이디어 위에 서 있고, 그것들을 참고하여 만들어졌습니다:
+
+- **[get-shit-done (GSD)](https://github.com/open-gsd/gsd-core)** — 스펙 주도 phase-loop 프로젝트 워크플로. khaness의 `kha-*` 명령과 번들된 `get-shit-done/` 서브시스템이 여기서 파생됐습니다.
+- **Ouroboros** — 토론 엔진과 Ralph verify-fix 루프 뒤의 이벤트 소싱 / 무상태 재개 패턴 (`scripts/engine/debate.py`, `scripts/engine/ralph.py` 참조).
+- **OMC** — 오케스트레이션 모델 + 단방향 4계층 `scripts/` 아키텍처 (`lib/` → `validators/` → `handlers/` → `engine/`).
 
 * * *
 

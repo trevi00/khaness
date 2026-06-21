@@ -51,8 +51,11 @@ def log_change(claude_dir: str | Path | None, tool_name: str, file_path: str) ->
 
     changelog_path = os.path.join(str(claude_dir), "changelog.md")
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    basename = os.path.basename(file_path)
     rel_path = (file_path or "").replace("\\", "/")
+    # Derive basename from the NORMALIZED path, not os.path.basename — the latter
+    # is platform-dependent (on POSIX a backslash is an ordinary char, so a
+    # Windows-style "src\\a\\b.py" would not be split, leaking separators).
+    basename = rel_path.rsplit("/", 1)[-1]
 
     action = {
         "Write": "CREATE",

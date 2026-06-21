@@ -44,17 +44,6 @@ jobs:
           python --version
           node --version
 
-      - name: DEBUG cross-platform failures (temporary)
-        working-directory: scripts
-        continue-on-error: true
-        env:
-          CLAUDE_HOME: ${{ github.workspace }}
-        run: |
-          for t in test_async_spawn test_changelog_io test_import_layering; do
-            echo "===================== $t ====================="
-            python tests/$t.py || true
-          done
-
       - name: run_units (harness internals — must be 0-fail)
         working-directory: scripts
         env:

@@ -236,6 +236,17 @@ def is_alive(pid: int) -> bool:
         return False
 
     if os.name == "posix":
+        # Reap first: a detached child we spawned stays a ZOMBIE after it exits
+        # (kill(pid,0) keeps succeeding) until the parent waitpid's it — which would
+        # make a short-lived spawn look "alive" forever. WNOHANG reaps it if it has
+        # exited (→ definitively dead); ChildProcessError means it is not our child
+        # (or was already reaped), so fall through to the kernel-visibility check.
+        try:
+            reaped, _ = os.waitpid(pid, os.WNOHANG)
+            if reaped == pid:
+                return False  # just reaped — the process has exited
+        except (ChildProcessError, OSError):
+            pass  # not our child / already reaped — defer to os.kill below
         try:
             os.kill(pid, 0)
             return True

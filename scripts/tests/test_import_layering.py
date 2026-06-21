@@ -28,9 +28,8 @@ from pathlib import Path
 
 # v15.26 C-δ activated — skip-marker removed (foundation lib/seed_lock + lib/ac_tree
 # in C-α and consumers lib/wonder + lib/reflect_feedback in C-β are now landed).
-import pytest  # noqa: E402
-
-# pytestmark removed in C-δ — test active.
+# pytestmark removed in C-δ — test active. (This suite uses plain asserts + its own
+# run_units runner, not pytest, so no pytest import is needed.)
 
 
 _SCRIPTS = Path(__file__).resolve().parent.parent

@@ -1,0 +1,50 @@
+# ── Python ────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Runtime / personal data (regenerated; never commit) ─────────────────────
+# Claude Code per-user runtime state — must never enter version control.
+.credentials.json
+.claude.json
+settings.local.json
+settings.json.bak-*
+history.jsonl
+projects/
+todos/
+tasks/
+sessions/
+shell-snapshots/
+paste-cache/
+file-history/
+backups/
+cache/
+ide/
+session-env/
+debug/
+plugins/
+
+# ── Harness runtime state (per-session artifacts, regenerated) ──────────────
+state/
+telemetry/
+memory/
+brain/
+atlas/
+scripts/_debate_payloads/
+scheduled_tasks.lock
+
+# ── Personal notes / handoff (user-local, not product) ──────────────────────
+changelog.md
+
+# ── OS / editor ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Git Bash / Cygwin crash dumps
+*.stackdump

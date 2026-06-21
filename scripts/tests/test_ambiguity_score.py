@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+"""Wire lib/ambiguity_score.py::_self_check() into the run_units regression.
+
+ambiguity_score ships a 59-assertion inline _self_check() (interview ambiguity
+scoring) reachable only via `python -m lib.ambiguity_score --self-check` — no
+tests/test_*.py with a main() existed, so run_units silently SKIPPED it. This
+thin wrapper makes the suite a first-class regression (self-verifying-harness
+follow-up: dead _self_check wiring, 2026-06-04).
+"""
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+_SCRIPTS = Path(__file__).resolve().parent.parent
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
+
+
+def main() -> int:
+    from lib import ambiguity_score as _m
+    rc = _m._self_check()
+    return rc if isinstance(rc, int) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

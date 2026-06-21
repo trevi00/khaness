@@ -1,0 +1,42 @@
+{
+  "$schema": "https://agentskills.io/schema/v1.json",
+  "name": "skill-name",
+  "version": "0.1.0",
+  "description": "한 줄 설명 (도구 카탈로그용)",
+  "vendor": "vendor-name",
+  "license": "MIT",
+  "category": "implement",
+  "allowed_tools": [
+    "read",
+    "rg",
+    "edit"
+  ],
+  "denied_tools": [
+    "bash:rm",
+    "bash:curl",
+    "network"
+  ],
+  "mutates": false,
+  "long_running": false,
+  "secret_scan_required": true,
+  "invariant_constraints": [
+    "runtime policy 변경 금지 (yaml + 재빌드만)",
+    "placeholder reason 자동 거부",
+    "activation 게이트는 운영자 enable-skill 토큰 강제"
+  ],
+  "evidence_artifact_pattern": "~/.claude/state/skill-evidence/<session>/<id>.json",
+  "tech_stack_filter": {
+    "language": null,
+    "framework": null,
+    "version": null
+  },
+  "activation": {
+    "auto": false,
+    "confirm_token": "enable-skill",
+    "requires_operator": true
+  },
+  "self_improvement": {
+    "enabled": false,
+    "comment": "Hermes self-improving 패턴은 후보 추출만 자동, 적용은 운영자 게이트 (invariant 보존)"
+  }
+}

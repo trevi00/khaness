@@ -1,0 +1,11 @@
+# Core-brain snapshot tree (debate-1781359722-f16550, INV-restore coupling guard C5b).
+# brain/ holds append-only / content-hash JSONL learned-state snapshots. git's
+# text/union merge would corrupt content-hash JSONL (union concatenates duplicate
+# id-lines without dedup). merge=binary makes git REFUSE a 3-way text merge: it
+# leaves the path conflicted with the working-tree copy, forcing the operator to
+# reconcile by re-running `python -m cli.brain_snapshot save` (which unions live +
+# committed by id). Resolve brain/ conflicts via save — NEVER git checkout --ours/--theirs.
+brain/** merge=binary
+# Disable EOL/CRLF normalization so byte-for-byte snapshot diffs stay minimal on Windows.
+brain/**/*.jsonl -text
+brain/**/*.json -text

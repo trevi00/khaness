@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "schema": "agentskills.io/v1",
+  "comment": "외부 agentskills.io v1 호환 skill의 import 레지스트리. 신규 import 시 imported[] 배열에 entry 추가 (activated: false). 활성화는 운영자 명시 게이트 (enable-skill 토큰, example_project PR-7 D13 완료 후).",
+  "imported": []
+}

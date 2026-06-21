@@ -1,0 +1,24 @@
+# tech-stack.yaml — 프로젝트 기술 스택 선언
+# 위치: {프로젝트}/.claude/tech-stack.yaml
+# skill-matcher.py 훅이 이 파일을 읽어서 해당 스킬 트리만 활성화합니다.
+
+# 스킬 트리 경로를 결정하는 핵심 필드
+stack:
+  language: java                   # java | kotlin | typescript | python
+  framework: springboot            # springboot | android | react | flutter
+  version: "3.2"                   # 프레임워크 버전 (스킬 디렉토리명과 매치)
+
+# 추가 컨텍스트 (스킬 내부에서 참조)
+database:
+  type: mysql
+  version: "5.7"
+
+orm: mybatis                       # mybatis | jpa | prisma | none
+cache: redis                       # redis | memcached | none
+messaging: kafka                   # kafka | rabbitmq | none
+auth: jwt                          # jwt | oauth | session | none
+
+# 활성화할 스킬 트리 경로 (자동 계산됨):
+# - _common/*                     ← 항상 활성화
+# - {language}/{framework}-{version}/* ← stack 기반 활성화
+# 예: java/springboot-3.2/*

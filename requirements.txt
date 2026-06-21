@@ -1,0 +1,10 @@
+# Claude Harness runtime dependencies.
+# Python 3.10+ required (hook interpreter). Tested on 3.10–3.13.
+
+# Hard requirement — 7 core lib modules (phase_tree, pipeline_yaml, spec_bundle,
+# handoff_drift, pipeline_overlay, spec_facets) import yaml at module load.
+PyYAML>=6.0
+
+# Optional — only the `team_watch` CLI dashboard (/harness-team monitor) uses it.
+# Core harness, debate engine, validators, and the full test suite run without it.
+rich>=13.0
